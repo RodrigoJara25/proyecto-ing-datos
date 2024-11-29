@@ -1,0 +1,50 @@
+Apple
+Microsoft
+Amazon
+Alphabet (Google)
+Tesla
+ExxonMobil
+Meta Platforms (Facebook)
+Berkshire Hathaway
+Johnson & Johnson
+Visa
+Procter & Gamble
+Nestlé
+Roche
+Samsung Electronics
+Toyota Motor Corporation
+JPMorgan Chase
+Pfizer
+Alibaba
+Coca-Cola
+Nike
+Intel
+McDonalds
+Sony
+Walmart
+Shell
+IBM
+Dell
+LVMH (Louis Vuitton Moët Hennessy)
+PepsiCo
+Boeing
+Oracle
+Mercedes-Benz Group
+Huawei
+BMW
+Siemens
+Tata Group
+AstraZeneca
+SpaceX
+Netflix
+Glencore
+Salesforce
+General Electric
+Honeywell
+AMD
+Airbnb
+Stripe
+Nvidia
+TikTok (ByteDance)
+Tencent
+Saudi Aramco
