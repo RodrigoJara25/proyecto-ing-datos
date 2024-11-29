@@ -62,8 +62,63 @@ def llenar_facturas():
     with open('insert_facturas.sql', 'w', encoding = 'utf-8') as archivo:
         archivo.write(contenido)
 
+def llenar_experiencias():
+    contenido = ''
+    i = 0
+    while i < 200:
+        tiempo = random.randint(0, 5)
+        descripcion = fake.paragraph()
+        id = i + 1
+        tmp = f"INSERT INTO experiencias (id, tiempo, descripcion) VALUES ({id}, {tiempo}, '{descripcion}');\n"
+        contenido = contenido + tmp
+        i = i + 1
+    with open('inserts_experiencias.sql', 'w', encoding = 'utf-8') as file:
+        file.write(contenido)
+
+def llenar_codigo_postal():
+    contenido = ''
+    i = 0
+    lista_numeros_generados = []
+    while i < 50:
+        numero = random.randint(10000, 99999)
+        if numero not in lista_numeros_generados:
+            lista_numeros_generados.append(numero)
+            distrito_id = i + 1
+            id = i + 1
+            tmp = f"INSERT INTO codigo_postal (id, numero, distrito_id) VALUES ({id}, {numero}, {distrito_id});\n"
+            contenido = contenido + tmp
+            i = i + 1
+    with open('inserts_codigo_postal.sql', 'w', encoding = 'utf-8') as file:
+        file.write(contenido)
+
+def llenar_postulantes():
+    contenido = ''
+    i = 0
+    while i < 200:
+        id = i + 1
+        nombre = fake.first_name()
+        experiencia = fake.paragraph()
+        perfil = fake.paragraph()
+        correo = fake.email()
+        sitio_web = fake.url()
+        cv = fake.url()
+        carrera_profesional_id = random.randint(1, 12)
+        condicion_id = random.randint(1,9)
+        if 3 <= condicion_id:
+            ciclo_id = condicion_id + 1
+        else:
+            ciclo_id = 10
+        tmp = f"INSERT INTO postulantes (id, nombre, experencia, perfil, correo, sitio_web, cv, carrera_profesional_id, condicion_id, ciclo_id) VALUES ({id}, '{nombre}', '{experiencia}', '{perfil}', '{correo}', '{sitio_web}', '{cv}', {carrera_profesional_id}, {condicion_id}, {ciclo_id});\n"
+        contenido = contenido + tmp
+        i = i + 1
+
+    with open('inserts_postulantes.sql', 'w', encoding = 'utf-8') as file:
+        file.write(contenido)
 
 # llenar_producto()
 # llenar_clientes()
-llenar_facturas()
-     
+# llenar_facturas()
+
+# llenar_experiencias()
+# llenar_codigo_postal()
+llenar_postulantes()
