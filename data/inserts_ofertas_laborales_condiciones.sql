@@ -1,4 +1,3 @@
--- migrate:up
 INSERT INTO ofertas_laborales_condiciones (id, oferta_laboral_id, condicion_id) VALUES (1, 1, 9);
 INSERT INTO ofertas_laborales_condiciones (id, oferta_laboral_id, condicion_id) VALUES (2, 2, 2);
 INSERT INTO ofertas_laborales_condiciones (id, oferta_laboral_id, condicion_id) VALUES (3, 3, 8);
@@ -599,6 +598,3 @@ INSERT INTO ofertas_laborales_condiciones (id, oferta_laboral_id, condicion_id) 
 INSERT INTO ofertas_laborales_condiciones (id, oferta_laboral_id, condicion_id) VALUES (598, 45, 8);
 INSERT INTO ofertas_laborales_condiciones (id, oferta_laboral_id, condicion_id) VALUES (599, 181, 9);
 INSERT INTO ofertas_laborales_condiciones (id, oferta_laboral_id, condicion_id) VALUES (600, 62, 5);
-
--- migrate:down
-DELETE FROM ofertas_laborales_condiciones;
