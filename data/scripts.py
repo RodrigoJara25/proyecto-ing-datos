@@ -3,64 +3,9 @@ from datetime import datetime
 
 import random
 
-
 # Crea una instancia de Faker
 fake = Faker()      # Faker fake = new Faker();
 
-
-def llenar_producto():
-    i = 1
-    contenido = ''
-    # Abre el archivo CSV
-    with open('productos.txt', mode='r', encoding='utf-8') as archivo:
-        # Itera sobre las filas y las imprime
-        for fila in archivo:
-            fila = fila.strip().split("::")    # para eliminar el espaciado entre lineas usamos .strip()   y para divir en una lista usamos .split("::")
-            id = fila[0]
-            nombre = fila[1].capitalize()       # capitalize() para ponerle mayusucla a cada nombre
-            categoria_id = fila[2]
-            descripcion = fake.paragraph()     # fake.paragraph() para generar texto random
-            codigo = random.randint(1000,5000)
-            valor_unitario = random.randint(5,200)/100.0
-            tmp = f"INSERT INTO productos (id, nombre, codigo, descripcion, valor_unitario, categoria_id) VALUES ({id}, '{nombre}', {codigo}, '{descripcion}', {valor_unitario}, {categoria_id});\n"
-            contenido = contenido + tmp
-            
-    # Crear o abrir el archivo en modo escritura
-    with open("inserts_productos.sql", "w", encoding="utf-8") as archivo:
-        archivo.write(contenido)
-
-def llenar_clientes():
-    i = 0
-    contenido = ''
-    while i < 100:
-        id = i + 1
-        nombre = fake.name()
-        direccion = fake.address()
-        rif = random.randint(10000000, 99999999)
-        ciudad_id = random.randint(1, 4)
-        tmp = f"INSERT INTO clientes (id, nombre, direccion, rif, ciudad_id) VALUES ({id}, '{nombre}', '{direccion}', {rif}, {ciudad_id});\n"
-        contenido = contenido + tmp 
-        i = i + 1
-    with open('insert_clientes.sql', 'w', encoding = 'utf-8') as archivo:
-        archivo.write(contenido)
-
-
-def llenar_facturas():
-    i = 0
-    contenido = ''
-    fecha_inicio = datetime(2022,1,1)
-    fecha_fin = datetime(2023,12,13)
-    while i < 1000:
-        id = i + 1
-        numero = 100000 + id
-        cliente_id = random.randint(1,100)
-        fecha_aleatoria = fake.date_time_between(start_date=fecha_inicio, end_date=fecha_fin)
-        fecha = fecha_aleatoria.strftime('%Y-%m-%d %H:%M:%S')
-        tmp = f"INSERT INTO facturas (id, numero, fecha, cliente_id) VALUES ({id}, {numero}, '{str(fecha)}', {cliente_id});\n"
-        contenido = contenido + tmp 
-        i = i + 1
-    with open('insert_facturas.sql', 'w', encoding = 'utf-8') as archivo:
-        archivo.write(contenido)
 
 def llenar_experiencias():
     contenido = ''
@@ -162,14 +107,81 @@ def llenar_empresas():
     with open('inserts_empresas.sql', 'w', encoding = 'utf-8') as file:
         file.write(contenido)
 
+def llenar_ofertas_laborales():
+    contenido = ''
+    i = 0
+    lista_random = []
+    while i < 200:
+        id = i + 1
+        conocimientos = fake.paragraph()
+        numero_vacantes = random.randint(1, 5)
+        codigo_oferta = random.randint(1000, 1500)
+        nombre_puesto = fake.job()
+        habilidades = fake.paragraph()
+        fecha_publicacion =  fake.date_between(start_date="-1y", end_date="today")
+        fecha_limite_postulacion = fake.date_between(start_date="-1y", end_date="today")
+        horario_trabajo = fake.paragraph()
+        beneficios_adicionales = fake.paragraph()
+        descripcion_funciones = fake.paragraph()
+        informacion_adicional = fake.paragraph()
+        disponibilidad_horario_id = random.randint(1, 2)
+        modalidad_id = random.randint(1, 3)
+        empresa_id = random.randint(1, 50)
+        experiencia_id = random.randint(1, 50)
+        tipo_oferta_id = random.randint(1, 3)
+        distrito_id = random.randint(1, 50)
+        tmp = f"INSERT INTO ofertas_laborales (id, conocimientos, numero_vacantes, codigo_oferta, nombre_puesto, habilidades, fecha_publicacion, fecha_limite_postulacion, horario_trabajo, beneficios_adicionales, descripcion_funciones, informacion_adicional, disponibilidad_horario_id, modalidad_id, empresa_id, experiencia_id, tipo_oferta_id, distrito_id) VALUES ({id}, '{conocimientos}', {numero_vacantes}, {codigo_oferta}, '{nombre_puesto}', '{habilidades}', '{fecha_publicacion}', '{fecha_limite_postulacion}', '{horario_trabajo}', '{beneficios_adicionales}', '{descripcion_funciones}', '{informacion_adicional}', {disponibilidad_horario_id}, {modalidad_id}, {empresa_id}, {experiencia_id}, {tipo_oferta_id}, {distrito_id});\n"
+        contenido = contenido + tmp
+        i = i + 1
+    
+    with open('inserts_ofertas_laborales.sql', 'w', encoding = 'utf-8') as file:
+        file.write(contenido)
 
+def llenar_ofertas_laborales_postulantes():
+    contenido = ''
+    i = 0
+    # Generamos 800 registros en esta relacion de muchos a muchos (asociativa)
+    while i < 800:
+        id = i + 1
+        oferta_laboral_id = random.randint(1, 200)      # elegimos una oferta al azar
+        postulante_id = random.randint(1, 200)          # y la vinculamos con un postulante al azar
+        tmp = f"INSERT INTO ofertas_laborales_postulantes (id, oferta_laboral_id, postulante_id) VALUES ({id}, {oferta_laboral_id}, {postulante_id});\n"
+        contenido = contenido + tmp
+        i = i + 1
 
-# llenar_producto()
-# llenar_clientes()
-# llenar_facturas()
+    with open('inserts_ofertas_laborales_postulantes.sql', 'w', encoding = 'utf-8') as file:
+        file.write(contenido)
+
+def llenar_ofertas_laborales_carreras_profesionales():
+    contenido = ''
+    i = 0
+    # Generamos 200 registros minimo en esta relacion de muchos a muchos (asociativa) para que cada oferta tenga una carrera deseable como minimo
+    while i < 200:
+        id = i + 1
+        oferta_laboral_id = i + 1      # elegimos una oferta 
+        carrera_profesional_id = random.randint(1, 12)          # y la vinculamos con una carrera al azar
+        tmp = f"INSERT INTO ofertas_laborales_carreras_profesionales (id, oferta_laboral_id, carrera_profesional_id) VALUES ({id}, {oferta_laboral_id}, {carrera_profesional_id});\n"
+        contenido = contenido + tmp
+        i = i + 1
+    j = 0
+    # Generamos 400 registros aleaorios para cada oferta y su carrera deseada
+    while j < 400:
+        id = i + 1
+        oferta_laboral_id = random.randint(1, 200)      # elegimos una oferta 
+        carrera_profesional_id = random.randint(1, 12)          # y la vinculamos con una carrera al azar
+        tmp = f"INSERT INTO ofertas_laborales_carreras_profesionales (id, oferta_laboral_id, carrera_profesional_id) VALUES ({id}, {oferta_laboral_id}, {carrera_profesional_id});\n"
+        contenido = contenido + tmp
+        i = i + 1
+        j = j + 1
+
+    with open('inserts_ofertas_laborales_carreras_profesionales.sql', 'w', encoding = 'utf-8') as file:
+        file.write(contenido)
 
 # llenar_experiencias()
 # llenar_codigo_postal()
 # llenar_postulantes()
 # llenar_proyectos()
-llenar_empresas()
+# llenar_empresas()
+# llenar_ofertas_laborales()
+# llenar_ofertas_laborales_postulantes()
+llenar_ofertas_laborales_carreras_profesionales()
