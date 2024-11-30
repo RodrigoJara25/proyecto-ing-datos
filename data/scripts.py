@@ -202,6 +202,31 @@ def llenar_ofertas_laborales_condiciones():
     with open('inserts_ofertas_laborales_condiciones.sql', 'w', encoding = 'utf-8') as file:
         file.write(contenido)
 
+def llenar_ofertas_laborales_idiomas():
+    contenido = ''
+    i = 0
+    # Generamos 200 registros minimo en esta relacion de muchos a muchos (asociativa) para que cada oferta tenga una carrera deseable como minimo
+    while i < 200:
+        id = i + 1
+        oferta_laboral_id = i + 1      # elegimos una oferta 
+        idioma_id = random.randint(1, 15)          # y la vinculamos con una condicion al azar
+        tmp = f"INSERT INTO ofertas_laborales_idiomas (id, oferta_laboral_id, idioma_id) VALUES ({id}, {oferta_laboral_id}, {idioma_id});\n"
+        contenido = contenido + tmp
+        i = i + 1
+    j = 0
+    # Generamos 400 registros aleaorios para cada oferta y su carrera deseada
+    while j < 400:
+        id = i + 1
+        oferta_laboral_id = random.randint(1, 200)      # elegimos una oferta 
+        idioma_id = random.randint(1, 15)          # y la vinculamos con una carrera al azar
+        tmp = f"INSERT INTO ofertas_laborales_idiomas (id, oferta_laboral_id, idioma_id) VALUES ({id}, {oferta_laboral_id}, {idioma_id});\n"
+        contenido = contenido + tmp
+        i = i + 1
+        j = j + 1
+
+    with open('inserts_ofertas_laborales_idiomas.sql', 'w', encoding = 'utf-8') as file:
+        file.write(contenido)
+
 # llenar_experiencias()
 # llenar_codigo_postal()
 # llenar_postulantes()
@@ -210,4 +235,5 @@ def llenar_ofertas_laborales_condiciones():
 # llenar_ofertas_laborales()
 # llenar_ofertas_laborales_postulantes()
 # llenar_ofertas_laborales_carreras_profesionales()
-llenar_ofertas_laborales_condiciones()
+# llenar_ofertas_laborales_condiciones()
+llenar_ofertas_laborales_idiomas()
