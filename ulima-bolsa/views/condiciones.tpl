@@ -39,35 +39,22 @@
                 <br>
                 <button type="submit">Enviar</button>
             </form>
+            <br>
+            <button onclick="window.location.href='/usuarios';">Regresar a Tabla Postulantes</button>
 
         </div>
         <br>
         <br>
         <table>
             <thead>
-                <th>Nombre </th>
-                <th>Experiencia </th>
-                <th>Perfil </th>
-                <th>Correo </th>
-                <th>Carrera Profesional </th>
+                <th>id </th>
                 <th>Condicion </th>
-                <th>Ciclo </th>
-                <th>Operaciones </th>
             </thead>
             <tbody>
                 % for oferta in ofertas:
                 <tr>
-                    <td>{{oferta['Nombre']}}</td>
-                    <td>{{oferta['Experiencia']}}</td>
-                    <td>{{oferta['Perfil']}}</td>
-                    <td>{{oferta['Correo']}}</td>
-                    <td>{{oferta['Carrera Profesional']}}</td>
-                    <td>{{oferta['Condicion']}}</td>
-                    <td>{{oferta['Ciclo']}}</td>
-                    <td>
-                        <a href = "/postulante/editar?id={{oferta['id']}}">Editar</a>
-                        <a href = "/postulante/eliminar?id={{oferta['id']}}">Eliminar</a>
-                    </td>
+                    <td>{{oferta['id']}}</td>
+                    <td>{{oferta['nombre']}}</td>
                 </tr>
                 %end
             </tbody>

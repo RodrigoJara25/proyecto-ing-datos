@@ -25,20 +25,22 @@
         <br>
         <div>
             <h3>CONSULTA MAS INFORMACION</h3>
-            <form action="/consultar_tablas" method="POST">
+            <form action="/consultar_tablas_empresas" method="POST">
                 <p>Consulta otras tablas:</p>
                 
                 <input type="radio" id="opcion1" name="opcion" value="opcion1">
-                <label for="opcion1">Carreras Profesionales</label><br>
+                <label for="opcion1">Ofertas Laborales Postulantes</label><br>
                 
                 <input type="radio" id="opcion2" name="opcion" value="opcion2">
-                <label for="opcion2">Condicion de los Postulantes</label><br>
+                <label for="opcion2">Ofertas Laborales Condiciones</label><br>
                 
                 <input type="radio" id="opcion3" name="opcion" value="opcion3">
-                <label for="opcion3">Ciclos de los postulantes</label><br>
+                <label for="opcion3">Ofertas Laborales Carreras Profesionales</label><br>
                 <br>
                 <button type="submit">Enviar</button>
             </form>
+            <br>
+            <button onclick="window.location.href='/usuarios';">Regresar a Tabla Empresas</button>
 
         </div>
         <br>
@@ -46,28 +48,21 @@
         <table>
             <thead>
                 <th>Nombre </th>
-                <th>Experiencia </th>
-                <th>Perfil </th>
-                <th>Correo </th>
-                <th>Carrera Profesional </th>
-                <th>Condicion </th>
-                <th>Ciclo </th>
-                <th>Operaciones </th>
+                <th>Empleados </th>
+                <th>Contacto </th>
+                <th>Informacion </th>
+                <th>Industria </th>
+                <th>Tipo </th>
             </thead>
             <tbody>
                 % for oferta in ofertas:
                 <tr>
                     <td>{{oferta['Nombre']}}</td>
-                    <td>{{oferta['Experiencia']}}</td>
-                    <td>{{oferta['Perfil']}}</td>
-                    <td>{{oferta['Correo']}}</td>
-                    <td>{{oferta['Carrera Profesional']}}</td>
-                    <td>{{oferta['Condicion']}}</td>
-                    <td>{{oferta['Ciclo']}}</td>
-                    <td>
-                        <a href = "/postulante/editar?id={{oferta['id']}}">Editar</a>
-                        <a href = "/postulante/eliminar?id={{oferta['id']}}">Eliminar</a>
-                    </td>
+                    <td>{{oferta['Empleados']}}</td>
+                    <td>{{oferta['Contacto']}}</td>
+                    <td>{{oferta['Informacion']}}</td>
+                    <td>{{oferta['Industria']}}</td>
+                    <td>{{oferta['Tipo']}}</td>
                 </tr>
                 %end
             </tbody>

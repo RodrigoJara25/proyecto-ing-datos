@@ -56,7 +56,3 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
   background-color: #ffffff; /* Color de las filas impares (blanco) */
 }
-
-.content h2{
-  text-align: center;
-}
