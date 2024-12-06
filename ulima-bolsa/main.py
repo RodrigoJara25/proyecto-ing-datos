@@ -346,7 +346,7 @@ def eliminar_carrera():
   return redirect('/usuarios')
 
 @route('/empresas')
-def home():
+def empresas():
   db = Database()
   query = (f"""
           SELECT
