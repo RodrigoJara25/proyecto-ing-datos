@@ -385,116 +385,26 @@ def consultar_tablas_empresas():
       db = Database()
       query = (f"""
               SELECT
-                *
-              FROM ofertas_laborales_codiciones
-                  """)  # le respuesta de la consulta la almacenamos (la tabla)
+                ofertas_laborales.id AS 'OfertaID',
+                ofertas_laborales.nombre_puesto AS 'Puesto',
+                condiciones.nombre AS 'Condicion'
+              FROM ofertas_laborales_condiciones INNER JOIN condiciones ON ofertas_laborales_condiciones.condicion_id = condiciones.id
+                              INNER JOIN ofertas_laborales ON ofertas_laborales_condiciones.oferta_laboral_id = ofertas_laborales.id
+                """)  # le respuesta de la consulta la almacenamos (la tabla)
       rs = db.fetchall(query)
-      return template('condiciones', ofertas=rs)
+      return template('ofertas_laborales_condiciones', ofertas=rs)
   elif tabla == 'opcion3':
       db = Database()
       query = (f"""
               SELECT
-                *
-              FROM ofertas_laborales_carreras_profesionales
-                  """)  # le respuesta de la consulta la almacenamos (la tabla)
+                ofertas_laborales.id AS 'OfertaID',
+                ofertas_laborales.nombre_puesto AS 'Puesto',
+                carreras_profesionales.nombre AS 'Carrera'
+              FROM ofertas_laborales_carreras_profesionales INNER JOIN carreras_profesionales ON ofertas_laborales_carreras_profesionales.carrera_profesional_id = carreras_profesionales.id
+                              INNER JOIN ofertas_laborales ON ofertas_laborales_carreras_profesionales.oferta_laboral_id = ofertas_laborales.id
+              """)  # le respuesta de la consulta la almacenamos (la tabla)
       rs = db.fetchall(query)
-      return template('ciclos', ofertas=rs)
-
-
-
-
-
-@route('/pokemon/agregar')
-def pokemon_agregar():
-  return template('pokemon_agregar')
-
-@route('/pokemon/create', method='POST')
-def create_pokemon():
-  # Obtener los datos del formulario
-  name = request.forms.get('name')
-  number = request.forms.get('number')
-  weight = request.forms.get('weight')
-  height = request.forms.get('height')
-  image_url = request.forms.get('image_url')
-  generation_id = request.forms.get('generation_id')
-  # acceder a la base de datos
-  db = Database()
-  query = (
-      f"INSERT INTO pokemons (name, number, weight, height, image_url, generation_id) "
-      f"VALUES ('{name}', {number}, {weight}, {height}, '{image_url}', {generation_id})"
-  )
-  print(query)
-  db.execute(query)
-  db.close()
-  # ir al inicio
-  redirect('https://600e18f4-c523-4a99-9a36-8f6cfafd26f0-00-1yz1dtjeejvub.kirk.replit.dev:8080/')
-
-@route('/pokemon/editar', method='GET')
-def editar_pokemon():
-  # Obtener los datos del formulario
-  pokemon_id = request.query.id
-  # acceder a la base de datos
-  db = Database()
-  # info pokemon
-  query = (f"SELECT * FROM pokemons WHERE id = {pokemon_id};")
-  pokemon = db.fetchone(query)
-  # generaciones
-  query2 = ("SELECT * FROM generations;")
-  generation = db.fetchall(query2)
-  print(pokemon['name'])
-  db.close()
-  # ir al inicio
-  return template('pokemon_editar', pokemon=pokemon, generations=generation)
-
-@route('/pokemon/edit', method='POST')
-def edit_pokemon():
-  # Obtener los datos del formulario
-  id = request.forms.get('id')
-  name = request.forms.get('name')
-  number = request.forms.get('number')
-  weight = request.forms.get('weight')
-  height = request.forms.get('height')
-  image_url = request.forms.get('image_url')
-  generation_id = request.forms.get('generation_id')
-  # acceder a la base de datos
-  db = Database()
-  query = (
-      f"UPDATE pokemons SET name = '{name}', number = {number}, weight = {weight},"
-      f" height = {height}, image_url = '{image_url}', generation_id = {generation_id}"
-      f" WHERE id = {id}"
-  )
-  print(query)
-  db.execute(query)
-  db.close()
-  # ir al inicio
-  return redirect('https://600e18f4-c523-4a99-9a36-8f6cfafd26f0-00-1yz1dtjeejvub.kirk.replit.dev:8080/')
-
-@route('/pokemon/eliminar', method = 'GET')
-def eliminar_pokemon():
-  pokemon_id = request.query.id
-  db = Database()
-  query = (f"DELETE FROM pokemons WHERE id = {pokemon_id};")
-  db.execute(query)
-  db.close()
-  return redirect('https://600e18f4-c523-4a99-9a36-8f6cfafd26f0-00-1yz1dtjeejvub.kirk.replit.dev:8080/')
-
-@route('/usuarios2')
-def usuarios2():
-  db = Database()
-  rs = db.fetchall('SELECT * FROM users')
-  return template('usuarios', usuarios=rs)
-
-
-# Con @route podemos crear muchas direcciones
-@route('/contacto')
-def contacto():
-  return template('contacto')
-
-
-@route('/nosotros')
-def nosotros():
-  return template('nosotros')
-
+      return template('ofertas_laborales_carreras_profesionales', ofertas=rs)
 
 # esta es la funcion main
 # a su vez ejecuta una funcion "run" de una libreria
