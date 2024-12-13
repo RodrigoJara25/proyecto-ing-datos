@@ -1,6 +1,6 @@
 from bottle import route, run, template, static_file, request, redirect
 from configs.database import Database  #importamos la clase "Database"
-
+import os
 
 # para usar los archvios dentro de la carpeta "static" (css, imagenes, etc) y
 # para usar la carpeta "static" sin tener que usar todo el rato ./static
@@ -408,5 +408,12 @@ def consultar_tablas_empresas():
 
 # esta es la funcion main
 # a su vez ejecuta una funcion "run" de una libreria
+# if __name__ == '__main__':
+#   run(host='localhost', port=8080, reloader=True)
+
+  # Obtén el puerto desde la variable de entorno de Render (si está disponible), o usa 8080 como predeterminado.
+port = int(os.environ.get("PORT", 8080))
+
+# Corre el servidor de Bottle, asegurándote de escuchar en todas las interfaces.
 if __name__ == '__main__':
-  run(host='localhost', port=8080, reloader=True)
+  run(host='0.0.0.0', port=port, reloader=True)
